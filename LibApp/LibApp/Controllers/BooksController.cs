@@ -1,4 +1,5 @@
 ﻿using LibApp.Models;
+using LibApp.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -75,7 +76,20 @@ namespace LibApp.Controllers
         public IActionResult Random()
         {
             var firstBook = new Book() { Author = "Random author", Title = "Random title" };
-            return RedirectToAction("index", "Book", new {page = 1, sortBy = "title"});
+          //  return RedirectToAction("index", "Book", new {page = 1, sortBy = "title"});
+
+           // ViewBag.FirstBook = firstBook;
+           var customer = new List<Customer>
+           {
+               new Customer {Name = "Customer 1"},
+               new Customer {Name = "Customer 2"}
+           };
+            var randomBookViewModel = new RandomBooksViewModel
+            {
+                Book = firstBook,
+                Customers = customers
+            };
+            return View();
         }
 
 
