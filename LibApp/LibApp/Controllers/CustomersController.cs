@@ -1,36 +1,43 @@
-﻿using LibApp.ViewModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using LibApp.Models;
+using LibApp.ViewModels;
 
 namespace LibApp.Controllers
 {
     public class CustomersController
     {
-
-
-
-
-        public IActionResult Details(int id)
+        public class CustomersController : Controller
         {
-            var customer = GetCustomers().SingleOrDefault(c => c.Id == id);
-
-            if (customer == null)
+            public ViewResult Index()
             {
-                return new NotFoundResult();
+                var customers = GetCustomers();
+
+                return View(customers);
             }
 
-            return new OkObjectResult(customer);
-        }
-
-
-
-
-        private IEnumerable<Customer> GetCustomers()
-        {
-            return new List<Customer>
+            public IActionResult Details(int id)
             {
-                new Customer { Id = 1, Name = "John Smith" },
-                new Customer { Id = 2, Name = "Mary Williams" }
+                var customer = GetCustomers().SingleOrDefault(c => c.Id == id);
+
+                if (customer == null)
+                {
+                    return Content("User not found");
+                }
+
+                return View(customer);
+            }
+
+            private IEnumerable<Customer> GetCustomers()
+            {
+                return new List<Customer>
+            {
+                new Customer { Id = 1, Name = "Jan Kowalski" },
+                new Customer { Id = 2, Name = "Monika Nowak" }
             };
-        }   
+            }
+        }
     }
-}
