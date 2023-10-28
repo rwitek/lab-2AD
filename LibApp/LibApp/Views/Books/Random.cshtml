@@ -1,30 +1,33 @@
 ﻿@model LibApp.ViewModels.RandomBooksViewModel
 
 @{
-    ViewBag.Title = "Random Book";
+    ViewBag.Title = "Random book";
     Layout = "~/Views/Shared/_Layout.cshtml";
-   // var book = ViewBag.Book as Book;
-    var book = ViewData["FirstBook"] as Book; // Casting is required here
+    // var book = ViewBag.Book as Book;
+    //var book = ViewData["FirstBook"] as Book; // casting is required here
 }
-@*@Use for direct object passing from controller return type f.e. return View(firstBook);*@
-@*@<h2>@Model.Title</h2>*@
-<h2>@book.Title</h2>
+
+@*Use for direct object passing from controller return type f.e. return View(firstBook)*@
+@*<h2>@Model.Title</h2>*@
+
+@*Use for ViewBag or ViewData*@
+@*<h2>@book.Title</h2>*@
 
 
 @{
-    var classname = Model.Customers.Count == 5 ? "popular" : null;
+    var className = Model.Customers.Count == 5 ? "popular" : null;
 }
-
-@*Use for direct ViewModel object passing *@
-<h2>@Model.Book.Title</h2>
+@*Use for direct ViewModel object passing from controller return type f.e. return View(randomBooksViewModel)*@
+<h2 class="@className">@Model.Book.Title</h2>
 
 <ul>
-    @if(Model.Customer.Count == 0)
+    @if (Model.Customers.Count == 0)
     {
-        <p>No one has rented this book yet</p>
+            <p>No one has rented this book yet</p>
     }
-    @foreach (var customer in Model.Customers)
-    {
-        <li>@customer.Name</li>
-    }
+    else
+        foreach (var customer in Model.Customers)
+        {
+                <li>@customer.Name</li>
+        }
 </ul>

@@ -6,6 +6,6 @@ namespace LibApp.ViewModels
     {
         public Book Book { get; set; }
 
-        public <List>Customer Customers { get; set; }
+        public List<Customer> Customers { get; set; }
     }
 }
