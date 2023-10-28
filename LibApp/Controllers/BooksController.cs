@@ -7,20 +7,18 @@ namespace LibApp.Controllers
 {
     public class BooksController : Controller
     {
-        
-        
-
-        //GET: BooksController/{pageIndex}&{sortBy}
+        // GET: BooksController/{pageIndex}&{sortBy}
         public IActionResult Index(int? pageIndex, string sortBy)
         {
-            if(!pageIndex.HasValue)
+            if (!pageIndex.HasValue)
             {
                 pageIndex = 1;
             }
-            if(String.IsNullOrWhiteSpace(sortBy))
+            if (String.IsNullOrWhiteSpace(sortBy))
             {
                 sortBy = "title";
             }
+
             return Content(String.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
         }
 
@@ -72,7 +70,7 @@ namespace LibApp.Controllers
             }
         }
 
-        //GET: BooksController/Random
+        // GET: BooksController/Random
         public IActionResult Random()
         {
             var firstBook = new Book() { Author = "Random author", Title = "Random title" };
@@ -96,15 +94,11 @@ namespace LibApp.Controllers
             //return RedirectToAction("Index", "Book", new { page = 1, sortBy = "title" });
         }
 
-
-
         // GET: BooksController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
-
-
 
         // POST: BooksController/Delete/5
         [HttpPost]
