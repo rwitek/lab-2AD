@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LibApp.Models;
 using LibApp.ViewModels;
 using LibApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibApp.Controllers
 {
@@ -19,7 +20,7 @@ namespace LibApp.Controllers
         }
         public ViewResult Index()
         {
-            var customers = _context.Customers.ToList();
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
 
             return View(customers);
         }
@@ -32,7 +33,7 @@ namespace LibApp.Controllers
 
             return View(customer);
         }
-
+        
         private IEnumerable<Customer> GetCustomers()
         {
             return new List<Customer>
