@@ -5,26 +5,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using LibApp.Models;
 using LibApp.ViewModels;
+using LibApp.Data;
 
 namespace LibApp.Controllers
 {
     public class CustomersController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public CustomersController(ApplicationDbContext dbContext)
+        {
+            _context = dbContext; 
+        }
         public ViewResult Index()
         {
-            var customers = GetCustomers();
+            var customers = _context.Customers.ToList();
 
             return View(customers);
         }
 
         public IActionResult Details(int id)
         {
-            var customer = GetCustomers().SingleOrDefault(c => c.Id == id);
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
-            if (customer == null)
-            {
-                return Content("User not found");
-            }
+          
 
             return View(customer);
         }
@@ -37,5 +41,7 @@ namespace LibApp.Controllers
                 new Customer { Id = 2, Name = "Monika Nowak" }
             };
         }
+
+        
     }
 }
