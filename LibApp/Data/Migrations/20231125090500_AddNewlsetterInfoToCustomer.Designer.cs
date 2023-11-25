@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231125085537_ApplyAnnotationsToCustomerName")]
-    partial class ApplyAnnotationsToCustomerName
+    [Migration("20231125090500_AddNewlsetterInfoToCustomer")]
+    partial class AddNewlsetterInfoToCustomer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,9 @@ namespace LibApp.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("HasNewsletterSubscribed")
+                        .HasColumnType("bit");
 
                     b.Property<int>("MembershipTypeId")
                         .HasColumnType("int");

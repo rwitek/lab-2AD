@@ -1,25 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace LibApp.Data.Migrations
 {
-    public partial class AddNewlSetterInfroToCustomer : Migration
+    public partial class AddBirthdateToCustomer : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<bool>(
-                name: "HasNewsletterSubscription",
+            migrationBuilder.AddColumn<DateTime>(
+                name: "Birthdate",
                 table: "Customers",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
+                type: "datetime2",
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "HasNewsletterSubscription",
+                name: "Birthdate",
                 table: "Customers");
         }
     }
