@@ -6,6 +6,7 @@
 }
 
 <h2>Customers</h2>
+<a class="btn btn-primary" asp-action="CustomerForm">New Customer</a>
 
 @if (!Model.Any())
 {
@@ -24,7 +25,7 @@ else
             @foreach (var customer in Model)
             {
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => customer.Name)</td>
+                    <td><a asp-action="Edit" asp-route-id="@customer.Id">@Html.DisplayFor(modelItem => customer.Name)</a></td>
                     <td>@customer.MembershipType.Name</td>
                     <td><a asp-action="Details" asp-route-id="@customer.Id">Details</a></td>
                 </tr>
