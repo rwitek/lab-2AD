@@ -49,9 +49,31 @@ namespace LibApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Customer customer)
+        [ValidateAntiForgeryToken]
+        public IActionResult Save(Customer customer)
         {
-            _context.Customers.Add(customer);
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new NewCustomerViewModel
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+                return View("CustomerForm", viewModel);
+            }
+            if (customer.Id == 0)
+            {
+                _context.Customers.Add(customer);
+            }
+            else
+            {
+                var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == customer.Id);
+                customerInDb.Name = customer.Name;
+                customerInDb.Birthdate = customer.Birthdate;
+                customerInDb.MembershipTypeId = customer.MembershipTypeId;
+                customerInDb.HasNewsletterSubscribed = customer.HasNewsletterSubscribed;
+            }
+
             _context.SaveChanges();
             return RedirectToAction("Index", "Customers");
         }
